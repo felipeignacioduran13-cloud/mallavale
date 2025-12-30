@@ -1,0 +1,1143 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- ✅ Cambio: pestaña principal con mayúsculas en Malla y Valentina -->
+  <title>Malla Princesita Valentina</title>
+
+  <style>
+    /* =========================
+       FUENTE MUTHIARA (LOCAL)
+       1) Descarga Muthiara (.otf o .ttf)
+       2) Renómbrala a: Muthiara.otf
+       3) Déjala junto a este index.html
+       ========================= */
+    @font-face{
+      font-family: "Muthiara";
+      src: url("Muthiara.otf") format("opentype");
+      font-display: swap;
+    }
+
+    :root{
+      --bg1:#fff1f7;
+      --bg2:#ffe4f1;
+      --card:#ffffffcc;
+      --stroke:#f6b3d1;
+      --stroke2:#f09ac4;
+      --text:#3a2430;
+      --muted:#6a4a59;
+
+      --pink:#ff4fa3;
+      --pink2:#ff78bb;
+
+      --shadow: 0 10px 30px rgba(255,79,163,.14);
+      --radius: 18px;
+    }
+
+    *{box-sizing:border-box}
+
+    body{
+      margin:0;
+      font-family: "Times New Roman", Times, serif; /* TODO lo demás */
+      color:var(--text);
+      background:
+        radial-gradient(1200px 800px at 10% 10%, #fff 0%, var(--bg1) 35%, transparent 70%),
+        radial-gradient(900px 700px at 90% 20%, #fff 0%, var(--bg2) 40%, transparent 75%),
+        linear-gradient(180deg, var(--bg1), var(--bg2));
+      min-height:100vh;
+      position:relative;
+    }
+
+    /* =========================
+       INTRO (pantalla inicial)
+       ========================= */
+    #intro{
+      position:fixed;
+      inset:0;
+      z-index:99999;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:
+        radial-gradient(900px 700px at 30% 30%, #fff 0%, rgba(255,228,241,.95) 45%, rgba(255,209,232,.92) 75%),
+        linear-gradient(180deg, rgba(255,241,247,.98), rgba(255,228,241,.98));
+      transition: opacity .85s ease, visibility .85s ease;
+      opacity:1;
+      visibility:visible;
+    }
+    #intro.hidden{
+      opacity:0;
+      visibility:hidden;
+    }
+
+    /* ✅ NUEVO: contenedor para poder poner MUCHAS figuras alrededor */
+    .introStage{
+      position:relative;
+      display:inline-block;
+      max-width: 92vw;
+    }
+
+    .introBox{
+      text-align:center;
+      padding:40px 46px;
+      border-radius:32px;
+      background:rgba(255,255,255,.78);
+      border:1px solid rgba(240,154,196,.45);
+      box-shadow: 0 25px 70px rgba(255,79,163,.30);
+      max-width: 92vw;
+      position:relative;
+      z-index:2;
+    }
+    .introBox h1{
+      margin:0;
+      font-family:"Muthiara","Times New Roman",Times,serif;
+      font-size:54px;
+      font-weight:400;
+      color: var(--pink);
+      line-height:1;
+    }
+    .introBox .sub{
+      margin:14px 0 0;
+      font-size:14px;
+      color:var(--muted);
+      font-weight:700;
+    }
+    .introHint{
+      margin-top:10px;
+      font-size:12px;
+      color:rgba(106,74,89,.9);
+    }
+
+    /* ✅ NUEVO: MUCHAS figuras químicas alrededor del intro */
+    .introDeco{
+      position:absolute;
+      width:70px; height:70px;
+      border:1px solid rgba(240,154,196,.32);
+      background: rgba(255,255,255,.30);
+      border-radius: 20px;
+      display:grid;
+      place-items:center;
+      pointer-events:none;
+      z-index:1;
+      opacity:.58;
+      filter: drop-shadow(0 14px 24px rgba(255,79,163,.18));
+      transform: rotate(var(--r, 0deg));
+      animation: floaty 4.8s ease-in-out infinite;
+      animation-delay: var(--d, 0s);
+    }
+    .introDeco svg{opacity:.98}
+    @keyframes floaty{
+      0%,100%{ transform: translateY(0px) rotate(var(--r, 0deg)); }
+      50%{ transform: translateY(-8px) rotate(var(--r, 0deg)); }
+    }
+
+    /* Posiciones (muchas, se pueden repetir íconos) */
+    .i1 { left:-90px;  top:-30px;  --r:-12deg; --d:0s; }
+    .i2 { left:-92px;  top:60px;   --r:10deg;  --d:.3s; }
+    .i3 { left:-88px;  top:150px;  --r:-8deg;  --d:.6s; }
+    .i4 { left:-70px;  bottom:120px; --r:12deg; --d:1.2s; }
+    .i5 { left:-86px;  bottom:30px;  --r:-10deg; --d:.9s; }
+
+    .i6 { right:-90px; top:-26px;  --r:12deg;  --d:.2s; }
+    .i7 { right:-92px; top:64px;   --r:-10deg; --d:.5s; }
+    .i8 { right:-88px; top:154px;  --r:8deg;   --d:.8s; }
+    .i9 { right:-72px; bottom:118px; --r:-12deg; --d:1.3s; }
+    .i10{ right:-86px; bottom:28px;  --r:10deg;  --d:1.0s; }
+
+    .i11{ left:20px;   top:-78px;  --r:8deg;   --d:.4s; }
+    .i12{ left:120px;  top:-86px;  --r:-8deg;  --d:.9s; }
+    .i13{ left:230px;  top:-72px;  --r:12deg;  --d:1.1s; }
+    .i14{ right:230px; top:-72px;  --r:-12deg; --d:.7s; }
+    .i15{ right:120px; top:-86px;  --r:8deg;   --d:1.4s; }
+    .i16{ right:20px;  top:-78px;  --r:-8deg;  --d:1.0s; }
+
+    .i17{ left:20px;   bottom:-84px; --r:-10deg; --d:1.2s; }
+    .i18{ left:140px;  bottom:-92px; --r:10deg;  --d:.6s; }
+    .i19{ left:260px;  bottom:-78px; --r:-8deg;  --d:1.6s; }
+    .i20{ right:260px; bottom:-78px; --r:8deg;   --d:.9s; }
+    .i21{ right:140px; bottom:-92px; --r:-10deg; --d:1.7s; }
+    .i22{ right:20px;  bottom:-84px; --r:10deg;  --d:.8s; }
+
+    /* diagonales extra */
+    .i23{ left:-40px; top:-90px; --r:14deg; --d:1.3s; }
+    .i24{ right:-42px; top:-92px; --r:-14deg; --d:1.5s; }
+    .i25{ left:-38px; bottom:-92px; --r:-14deg; --d:1.1s; }
+    .i26{ right:-40px; bottom:-92px; --r:14deg; --d:1.4s; }
+
+    @media (max-width:900px){
+      .introDeco{ width:58px; height:58px; border-radius:18px; }
+      .i11,.i12,.i13,.i14,.i15,.i16,.i17,.i18,.i19,.i20,.i21,.i22{ display:none; }
+      .i23,.i24,.i25,.i26{ display:none; }
+    }
+    @media (max-width:700px){
+      .introBox h1{font-size:44px;}
+      .introDeco{ width:52px; height:52px; }
+      .i3,.i8,.i4,.i9{ display:none; } /* menos carga en móvil */
+    }
+
+    /* ====== Decoración alrededor (malla) ====== */
+    .decor{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      z-index:0;
+      opacity:.24;
+      filter: drop-shadow(0 10px 18px rgba(255,79,163,.16));
+    }
+    .decor .icon{
+      position:absolute;
+      width:92px; height:92px;
+      border:1px solid rgba(240,154,196,.30);
+      background: rgba(255,255,255,.28);
+      border-radius: 22px;
+      display:grid;
+      place-items:center;
+      transform: rotate(var(--r, 0deg));
+    }
+    .decor svg{opacity:.95}
+    .d1{left:18px; top:90px; --r:-10deg;}
+    .d2{right:22px; top:120px; --r:10deg;}
+    .d3{left:30px; bottom:130px; --r:14deg;}
+    .d4{right:26px; bottom:160px; --r:-8deg;}
+    .d5{left:50%; top:78px; transform: translateX(-50%) rotate(6deg);}
+    @media (max-width:700px){
+      .decor .icon{width:70px; height:70px; border-radius:18px;}
+      .d5{display:none;}
+    }
+
+    header{
+      position:sticky; top:0; z-index:10;
+      backdrop-filter: blur(10px);
+      background: linear-gradient(180deg, rgba(255,241,247,.92), rgba(255,241,247,.70));
+      border-bottom: 1px solid rgba(240,154,196,.35);
+    }
+
+    .wrap{max-width:1200px; margin:0 auto; padding:18px 16px; position:relative; z-index:2;}
+    .top{
+      display:flex; gap:14px; align-items:center; justify-content:space-between;
+      flex-wrap:wrap;
+    }
+
+    .brand{
+      display:flex; align-items:center; gap:12px;
+    }
+    .logo{
+      width:46px; height:46px; border-radius:14px;
+      background: radial-gradient(circle at 30% 30%, #fff, #ffd2e8 55%, #ffb5da 100%);
+      border: 1px solid rgba(240,154,196,.55);
+      box-shadow: var(--shadow);
+      display:grid; place-items:center;
+      position:relative;
+      overflow:hidden;
+    }
+    .logo svg{opacity:.95}
+
+    .title h1{
+      margin:0;
+      font-family: "Muthiara", "Times New Roman", Times, serif; /* TÍTULO MUTHIARA */
+      font-size:34px;
+      letter-spacing:.2px;
+      font-weight:400;
+      color: var(--pink);
+      line-height: 1;
+    }
+    .title p{margin:2px 0 0; color:var(--muted); font-size:13px;}
+
+    .stats{
+      display:flex; gap:10px; align-items:center; flex-wrap:wrap;
+    }
+
+    .pill{
+      background: var(--card);
+      border: 1px solid rgba(240,154,196,.45);
+      border-radius: 999px;
+      padding:10px 12px;
+      box-shadow: 0 8px 18px rgba(255,79,163,.10);
+      display:flex; gap:8px; align-items:center;
+      font-size:13px;
+      color:var(--muted);
+    }
+    .pill strong{color:var(--text)}
+    .pillIcon{
+      width:16px; height:16px;
+      display:inline-grid;
+      place-items:center;
+      flex:0 0 auto;
+    }
+
+    .btn{
+      cursor:pointer;
+      border:1px solid rgba(240,154,196,.55);
+      background: linear-gradient(180deg, #fff, #fff0f8);
+      color:var(--text);
+      border-radius: 999px;
+      padding:10px 12px;
+      font-weight:700;
+      box-shadow: 0 8px 18px rgba(255,79,163,.10);
+      transition:.15s transform ease, .15s filter ease;
+      user-select:none;
+    }
+    .btn:hover{transform: translateY(-1px); filter:brightness(1.02);}
+    .btn:active{transform: translateY(0px); filter:brightness(.98);}
+
+    main{padding:18px 16px 50px; position:relative; z-index:2;}
+
+    .grid{
+      max-width:1200px; margin:0 auto;
+      display:grid;
+      grid-template-columns: repeat(5, minmax(190px, 1fr));
+      gap:14px;
+    }
+    @media (max-width:1100px){ .grid{grid-template-columns: repeat(3, minmax(200px, 1fr));}}
+    @media (max-width:760px){ .grid{grid-template-columns: repeat(2, minmax(160px, 1fr));}}
+    @media (max-width:420px){ .grid{grid-template-columns: 1fr;}}
+
+    .sem{
+      background: var(--card);
+      border:1px solid rgba(240,154,196,.45);
+      border-radius: var(--radius);
+      padding:12px;
+      box-shadow: var(--shadow);
+      position:relative;
+      overflow:hidden;
+    }
+    .sem::before{
+      content:"";
+      position:absolute; inset:-60px -60px auto auto;
+      width:140px; height:140px;
+      background: radial-gradient(circle at 30% 30%, rgba(255,79,163,.30), rgba(255,79,163,0) 65%);
+      transform: rotate(18deg);
+    }
+
+    .semHead{
+      display:flex; align-items:flex-start; justify-content:space-between; gap:10px;
+      margin-bottom:10px;
+    }
+
+    .semHead h2{
+      margin:0;
+      font-size:18px;
+      letter-spacing:.2px;
+      color: var(--pink);
+      font-weight: 800;
+    }
+
+    .semMot{
+      margin-top:6px;
+      font-size:12px;
+      color:var(--muted);
+      font-weight:700;
+      line-height:1.15;
+      min-height: 1.15em;
+    }
+    .semMot.complete{ color:#8a0f4c; }
+
+    .courseList{display:flex; flex-direction:column; gap:8px;}
+
+    .course{
+      border:1px solid rgba(240,154,196,.35);
+      border-radius: 14px;
+      padding:10px 10px;
+      background: rgba(255,255,255,.8);
+      display:flex; align-items:flex-start; gap:10px;
+      cursor:pointer;
+      transition:.12s transform ease, .12s box-shadow ease, .12s opacity ease;
+      position:relative;
+      overflow:hidden;
+    }
+    .course:hover{transform: translateY(-1px); box-shadow: 0 10px 18px rgba(255,79,163,.10);}
+    .course[aria-disabled="true"]{
+      cursor:not-allowed;
+      opacity:.62;
+      filter: grayscale(.1);
+    }
+
+    /* ✅ Cambio: iconito químico en cada ramo (en vez del puntito) */
+    .cIcon{
+      width:18px;
+      height:18px;
+      margin-top:2px;
+      flex:0 0 auto;
+      display:inline-grid;
+      place-items:center;
+      border-radius:999px;
+      background: rgba(255,79,163,.10);
+      box-shadow: 0 0 0 4px rgba(255,79,163,.10);
+    }
+    .cIcon svg{display:block; opacity:.95}
+
+    /* COMPLETADO: SOLO OSCURECE (SIN TACHADO) */
+    .course.done{
+      background: linear-gradient(180deg, rgba(216,27,122,.20), rgba(178,18,99,.12));
+      border-color: rgba(178,18,99,.50);
+    }
+
+    .cText{min-width:0}
+    .cName{
+      font-weight:700;
+      font-size:12.5px;
+      line-height:1.2;
+      margin:0;
+    }
+    .cMeta{
+      margin-top:5px;
+      display:flex; flex-wrap:wrap; gap:6px;
+      font-size:11px;
+      color:var(--muted);
+    }
+    .tag{
+      border:1px solid rgba(240,154,196,.40);
+      background: rgba(255,240,248,.75);
+      padding:3px 7px;
+      border-radius:999px;
+      white-space:nowrap;
+    }
+    .tag.lock{border-color: rgba(154,163,178,.40); background: rgba(244,246,249,.7);}
+
+    .tip{
+      position:fixed;
+      inset:auto auto 16px 16px;
+      max-width:520px;
+      background: rgba(255,255,255,.92);
+      border: 1px solid rgba(240,154,196,.45);
+      border-radius: 16px;
+      padding: 12px 12px;
+      box-shadow: 0 20px 50px rgba(0,0,0,.10);
+      display:none;
+      z-index:999;
+    }
+    .tip h3{margin:0 0 6px; font-size:13px;}
+    .tip p{margin:0; font-size:12px; color:var(--muted); line-height:1.35;}
+    .tip .x{
+      position:absolute; top:8px; right:8px;
+      width:30px; height:30px;
+      border-radius:999px;
+      border:1px solid rgba(240,154,196,.45);
+      background: #fff;
+      cursor:pointer;
+    }
+
+    footer{
+      max-width:1200px;
+      margin:14px auto 0;
+      padding: 0 16px 24px;
+      color:var(--muted);
+      font-size:12px;
+      position:relative; z-index:2;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- INTRO -->
+  <div id="intro" role="button" tabindex="0" aria-label="Entrar a la malla">
+    <!-- ✅ Cambio: ahora el intro tiene MUCHAS figuras alrededor -->
+    <div class="introStage">
+      <!-- Columna izquierda -->
+      <div class="introDeco i1" aria-hidden="true">
+        <!-- Matraz -->
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+          <path d="M9 2h6" stroke="#ff4fa3" stroke-width="2" stroke-linecap="round"/>
+          <path d="M10 2v6l-5.5 9.5A3.5 3.5 0 0 0 7.5 22h9a3.5 3.5 0 0 0 3-5.5L14 8V2" stroke="#ff4fa3" stroke-width="2" stroke-linejoin="round"/>
+          <path d="M8 16h8" stroke="#ff78bb" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="introDeco i2" aria-hidden="true">
+        <!-- Mortero -->
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+          <path d="M4 10h16" stroke="#ff4fa3" stroke-width="2" stroke-linecap="round"/>
+          <path d="M6 10c0 6 3 10 6 10s6-4 6-10" stroke="#ff4fa3" stroke-width="2" stroke-linejoin="round"/>
+          <path d="M13 6l7-3" stroke="#ff78bb" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="introDeco i3" aria-hidden="true">
+        <!-- Cápsula -->
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+          <path d="M8 16l8-8" stroke="#ff4fa3" stroke-width="2" stroke-linecap="round"/>
+          <path d="M7.05 16.95a5 5 0 0 1 0-7.07l2.83-2.83a5 5 0 0 1 7.07 0 5 5 0 0 1 0 7.07l-2.83 2.83a5 5 0 0 1-7.07 0Z" stroke="#ff4fa3" stroke-width="2"/>
+          <path d="M9 8.5l6.5 6.5" stroke="#ff78bb" stroke-width="2" stroke-linecap="round" opacity=".7"/>
+        </svg>
+      </div>
+      <div class="introDeco i4" aria-hidden="true">
+        <!-- Gota -->
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+          <path d="M12 2s7 7 7 12a7 7 0 1 1-14 0c0-5 7-12 7-12Z" fill="#ff78bb" opacity=".45"/>
+          <path d="M12 2s7 7 7 12a7 7 0 1 1-14 0c0-5 7-12 7-12Z" stroke="#ff4fa3" stroke-width="2"/>
+        </svg>
+      </div>
+      <div class="introDeco i5" aria-hidden="true">
+        <!-- Cruz farmacia -->
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+          <path d="M10 4h4v6h6v4h-6v6h-4v-6H4v-4h6V4Z" fill="#ff78bb" opacity=".55"/>
+          <path d="M10 4h4v6h6v4h-6v6h-4v-6H4v-4h6V4Z" stroke="#ff4fa3" stroke-width="2" stroke-linejoin="round"/>
+        </svg>
+      </div>
+
+      <!-- Columna derecha -->
+      <div class="introDeco i6" aria-hidden="true">
+        <!-- Matraz -->
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+          <path d="M9 2h6" stroke="#ff4fa3" stroke-width="2" stroke-linecap="round"/>
+          <path d="M10 2v6l-5.5 9.5A3.5 3.5 0 0 0 7.5 22h9a3.5 3.5 0 0 0 3-5.5L14 8V2" stroke="#ff4fa3" stroke-width="2" stroke-linejoin="round"/>
+          <path d="M8 16h8" stroke="#ff78bb" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="introDeco i7" aria-hidden="true">
+        <!-- Cápsula -->
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+          <path d="M8 16l8-8" stroke="#ff4fa3" stroke-width="2" stroke-linecap="round"/>
+          <path d="M7.05 16.95a5 5 0 0 1 0-7.07l2.83-2.83a5 5 0 0 1 7.07 0 5 5 0 0 1 0 7.07l-2.83 2.83a5 5 0 0 1-7.07 0Z" stroke="#ff4fa3" stroke-width="2"/>
+          <path d="M9 8.5l6.5 6.5" stroke="#ff78bb" stroke-width="2" stroke-linecap="round" opacity=".7"/>
+        </svg>
+      </div>
+      <div class="introDeco i8" aria-hidden="true">
+        <!-- Mortero -->
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+          <path d="M4 10h16" stroke="#ff4fa3" stroke-width="2" stroke-linecap="round"/>
+          <path d="M6 10c0 6 3 10 6 10s6-4 6-10" stroke="#ff4fa3" stroke-width="2" stroke-linejoin="round"/>
+          <path d="M13 6l7-3" stroke="#ff78bb" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="introDeco i9" aria-hidden="true">
+        <!-- Gota -->
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+          <path d="M12 2s7 7 7 12a7 7 0 1 1-14 0c0-5 7-12 7-12Z" fill="#ff78bb" opacity=".45"/>
+          <path d="M12 2s7 7 7 12a7 7 0 1 1-14 0c0-5 7-12 7-12Z" stroke="#ff4fa3" stroke-width="2"/>
+        </svg>
+      </div>
+      <div class="introDeco i10" aria-hidden="true">
+        <!-- Cruz farmacia -->
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+          <path d="M10 4h4v6h6v4h-6v6h-4v-6H4v-4h6V4Z" fill="#ff78bb" opacity=".55"/>
+          <path d="M10 4h4v6h6v4h-6v6h-4v-6H4v-4h6V4Z" stroke="#ff4fa3" stroke-width="2" stroke-linejoin="round"/>
+        </svg>
+      </div>
+
+      <!-- Borde arriba (muchas) -->
+      <div class="introDeco i11" aria-hidden="true">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+          <path d="M9 2h6" stroke="#ff4fa3" stroke-width="2" stroke-linecap="round"/>
+          <path d="M10 2v6l-5.5 9.5A3.5 3.5 0 0 0 7.5 22h9a3.5 3.5 0 0 0 3-5.5L14 8V2" stroke="#ff4fa3" stroke-width="2" stroke-linejoin="round"/>
+          <path d="M8 16h8" stroke="#ff78bb" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="introDeco i12" aria-hidden="true">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+          <path d="M8 16l8-8" stroke="#ff4fa3" stroke-width="2" stroke-linecap="round"/>
+          <path d="M7.05 16.95a5 5 0 0 1 0-7.07l2.83-2.83a5 5 0 0 1 7.07 0 5 5 0 0 1 0 7.07l-2.83 2.83a5 5 0 0 1-7.07 0Z" stroke="#ff4fa3" stroke-width="2"/>
+          <path d="M9 8.5l6.5 6.5" stroke="#ff78bb" stroke-width="2" stroke-linecap="round" opacity=".7"/>
+        </svg>
+      </div>
+      <div class="introDeco i13" aria-hidden="true">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+          <path d="M12 2s7 7 7 12a7 7 0 1 1-14 0c0-5 7-12 7-12Z" fill="#ff78bb" opacity=".45"/>
+          <path d="M12 2s7 7 7 12a7 7 0 1 1-14 0c0-5 7-12 7-12Z" stroke="#ff4fa3" stroke-width="2"/>
+        </svg>
+      </div>
+      <div class="introDeco i14" aria-hidden="true">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+          <path d="M4 10h16" stroke="#ff4fa3" stroke-width="2" stroke-linecap="round"/>
+          <path d="M6 10c0 6 3 10 6 10s6-4 6-10" stroke="#ff4fa3" stroke-width="2" stroke-linejoin="round"/>
+          <path d="M13 6l7-3" stroke="#ff78bb" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="introDeco i15" aria-hidden="true">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+          <path d="M10 4h4v6h6v4h-6v6h-4v-6H4v-4h6V4Z" fill="#ff78bb" opacity=".55"/>
+          <path d="M10 4h4v6h6v4h-6v6h-4v-6H4v-4h6V4Z" stroke="#ff4fa3" stroke-width="2" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="introDeco i16" aria-hidden="true">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+          <path d="M9 2h6" stroke="#ff4fa3" stroke-width="2" stroke-linecap="round"/>
+          <path d="M10 2v6l-5.5 9.5A3.5 3.5 0 0 0 7.5 22h9a3.5 3.5 0 0 0 3-5.5L14 8V2" stroke="#ff4fa3" stroke-width="2" stroke-linejoin="round"/>
+          <path d="M8 16h8" stroke="#ff78bb" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+
+      <!-- Borde abajo (muchas) -->
+      <div class="introDeco i17" aria-hidden="true">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+          <path d="M4 10h16" stroke="#ff4fa3" stroke-width="2" stroke-linecap="round"/>
+          <path d="M6 10c0 6 3 10 6 10s6-4 6-10" stroke="#ff4fa3" stroke-width="2" stroke-linejoin="round"/>
+          <path d="M13 6l7-3" stroke="#ff78bb" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="introDeco i18" aria-hidden="true">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+          <path d="M12 2s7 7 7 12a7 7 0 1 1-14 0c0-5 7-12 7-12Z" fill="#ff78bb" opacity=".45"/>
+          <path d="M12 2s7 7 7 12a7 7 0 1 1-14 0c0-5 7-12 7-12Z" stroke="#ff4fa3" stroke-width="2"/>
+        </svg>
+      </div>
+      <div class="introDeco i19" aria-hidden="true">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+          <path d="M8 16l8-8" stroke="#ff4fa3" stroke-width="2" stroke-linecap="round"/>
+          <path d="M7.05 16.95a5 5 0 0 1 0-7.07l2.83-2.83a5 5 0 0 1 7.07 0 5 5 0 0 1 0 7.07l-2.83 2.83a5 5 0 0 1-7.07 0Z" stroke="#ff4fa3" stroke-width="2"/>
+          <path d="M9 8.5l6.5 6.5" stroke="#ff78bb" stroke-width="2" stroke-linecap="round" opacity=".7"/>
+        </svg>
+      </div>
+      <div class="introDeco i20" aria-hidden="true">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+          <path d="M9 2h6" stroke="#ff4fa3" stroke-width="2" stroke-linecap="round"/>
+          <path d="M10 2v6l-5.5 9.5A3.5 3.5 0 0 0 7.5 22h9a3.5 3.5 0 0 0 3-5.5L14 8V2" stroke="#ff4fa3" stroke-width="2" stroke-linejoin="round"/>
+          <path d="M8 16h8" stroke="#ff78bb" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="introDeco i21" aria-hidden="true">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+          <path d="M10 4h4v6h6v4h-6v6h-4v-6H4v-4h6V4Z" fill="#ff78bb" opacity=".55"/>
+          <path d="M10 4h4v6h6v4h-6v6h-4v-6H4v-4h6V4Z" stroke="#ff4fa3" stroke-width="2" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="introDeco i22" aria-hidden="true">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+          <path d="M12 2s7 7 7 12a7 7 0 1 1-14 0c0-5 7-12 7-12Z" fill="#ff78bb" opacity=".45"/>
+          <path d="M12 2s7 7 7 12a7 7 0 1 1-14 0c0-5 7-12 7-12Z" stroke="#ff4fa3" stroke-width="2"/>
+        </svg>
+      </div>
+
+      <!-- extras diagonales -->
+      <div class="introDeco i23" aria-hidden="true">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+          <path d="M9 2h6" stroke="#ff4fa3" stroke-width="2" stroke-linecap="round"/>
+          <path d="M10 2v6l-5.5 9.5A3.5 3.5 0 0 0 7.5 22h9a3.5 3.5 0 0 0 3-5.5L14 8V2" stroke="#ff4fa3" stroke-width="2" stroke-linejoin="round"/>
+          <path d="M8 16h8" stroke="#ff78bb" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="introDeco i24" aria-hidden="true">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+          <path d="M4 10h16" stroke="#ff4fa3" stroke-width="2" stroke-linecap="round"/>
+          <path d="M6 10c0 6 3 10 6 10s6-4 6-10" stroke="#ff4fa3" stroke-width="2" stroke-linejoin="round"/>
+          <path d="M13 6l7-3" stroke="#ff78bb" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="introDeco i25" aria-hidden="true">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+          <path d="M8 16l8-8" stroke="#ff4fa3" stroke-width="2" stroke-linecap="round"/>
+          <path d="M7.05 16.95a5 5 0 0 1 0-7.07l2.83-2.83a5 5 0 0 1 7.07 0 5 5 0 0 1 0 7.07l-2.83 2.83a5 5 0 0 1-7.07 0Z" stroke="#ff4fa3" stroke-width="2"/>
+          <path d="M9 8.5l6.5 6.5" stroke="#ff78bb" stroke-width="2" stroke-linecap="round" opacity=".7"/>
+        </svg>
+      </div>
+      <div class="introDeco i26" aria-hidden="true">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+          <path d="M10 4h4v6h6v4h-6v6h-4v-6H4v-4h6V4Z" fill="#ff78bb" opacity=".55"/>
+          <path d="M10 4h4v6h6v4h-6v6h-4v-6H4v-4h6V4Z" stroke="#ff4fa3" stroke-width="2" stroke-linejoin="round"/>
+        </svg>
+      </div>
+
+      <div class="introBox">
+        <h1>Malla Princesita Valentina</h1>
+        <div class="sub">Toca la pantalla para comenzar ✨</div>
+        <div class="introHint">Cualquier toque o clic continúa</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Decoraciones alrededor -->
+  <div class="decor" aria-hidden="true">
+    <div class="icon d1">
+      <!-- Matraz -->
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none">
+        <path d="M9 2h6" stroke="#ff4fa3" stroke-width="2" stroke-linecap="round"/>
+        <path d="M10 2v6l-5.5 9.5A3.5 3.5 0 0 0 7.5 22h9a3.5 3.5 0 0 0 3-5.5L14 8V2" stroke="#ff4fa3" stroke-width="2" stroke-linejoin="round"/>
+        <path d="M8 16h8" stroke="#ff78bb" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="icon d2">
+      <!-- Cápsula -->
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none">
+        <path d="M8 16l8-8" stroke="#ff4fa3" stroke-width="2" stroke-linecap="round"/>
+        <path d="M7.05 16.95a5 5 0 0 1 0-7.07l2.83-2.83a5 5 0 0 1 7.07 0 5 5 0 0 1 0 7.07l-2.83 2.83a5 5 0 0 1-7.07 0Z" stroke="#ff4fa3" stroke-width="2"/>
+        <path d="M9 8.5l6.5 6.5" stroke="#ff78bb" stroke-width="2" stroke-linecap="round" opacity=".7"/>
+      </svg>
+    </div>
+    <div class="icon d3">
+      <!-- Cruz farmacia -->
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none">
+        <path d="M10 4h4v6h6v4h-6v6h-4v-6H4v-4h6V4Z" fill="#ff78bb" opacity=".55"/>
+        <path d="M10 4h4v6h6v4h-6v6h-4v-6H4v-4h6V4Z" stroke="#ff4fa3" stroke-width="2" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <div class="icon d4">
+      <!-- Gota -->
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none">
+        <path d="M12 2s7 7 7 12a7 7 0 1 1-14 0c0-5 7-12 7-12Z" fill="#ff78bb" opacity=".45"/>
+        <path d="M12 2s7 7 7 12a7 7 0 1 1-14 0c0-5 7-12 7-12Z" stroke="#ff4fa3" stroke-width="2"/>
+      </svg>
+    </div>
+    <div class="icon d5">
+      <!-- Mortero -->
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none">
+        <path d="M4 10h16" stroke="#ff4fa3" stroke-width="2" stroke-linecap="round"/>
+        <path d="M6 10c0 6 3 10 6 10s6-4 6-10" stroke="#ff4fa3" stroke-width="2" stroke-linejoin="round"/>
+        <path d="M13 6l7-3" stroke="#ff78bb" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </div>
+  </div>
+
+<header>
+  <div class="wrap">
+    <div class="top">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">
+          <!-- Ícono matraz -->
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+            <path d="M9 2h6" stroke="#ff4fa3" stroke-width="2" stroke-linecap="round"/>
+            <path d="M10 2v6l-5.5 9.5A3.5 3.5 0 0 0 7.5 22h9a3.5 3.5 0 0 0 3-5.5L14 8V2" stroke="#ff4fa3" stroke-width="2" stroke-linejoin="round"/>
+            <path d="M8 16h8" stroke="#ff78bb" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="title">
+          <h1>Química y Farmacia</h1>
+          <p>Marca tus ramos • Se bloquean/desbloquean por prerrequisitos</p>
+        </div>
+      </div>
+
+      <div class="stats">
+        <div class="pill">
+          <span class="pillIcon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none">
+              <path d="M9 2h6" stroke="#ff4fa3" stroke-width="2" stroke-linecap="round"/>
+              <path d="M10 2v6l-5.5 9.5A3.5 3.5 0 0 0 7.5 22h9a3.5 3.5 0 0 0 3-5.5L14 8V2" stroke="#ff4fa3" stroke-width="2" stroke-linejoin="round"/>
+              <path d="M8 16h8" stroke="#ff78bb" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </span>
+          <span>Aprobados:</span> <strong id="doneCount">0</strong>
+        </div>
+
+        <div class="pill">
+          <span class="pillIcon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none">
+              <path d="M9 2h6" stroke="#ff4fa3" stroke-width="2" stroke-linecap="round"/>
+              <path d="M10 2v6l-5.5 9.5A3.5 3.5 0 0 0 7.5 22h9a3.5 3.5 0 0 0 3-5.5L14 8V2" stroke="#ff4fa3" stroke-width="2" stroke-linejoin="round"/>
+              <path d="M8 16h8" stroke="#ff78bb" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </span>
+          <span>Desbloqueados:</span> <strong id="unlockedCount">0</strong>
+        </div>
+
+        <div class="pill">
+          <span class="pillIcon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none">
+              <path d="M9 2h6" stroke="#ff4fa3" stroke-width="2" stroke-linecap="round"/>
+              <path d="M10 2v6l-5.5 9.5A3.5 3.5 0 0 0 7.5 22h9a3.5 3.5 0 0 0 3-5.5L14 8V2" stroke="#ff4fa3" stroke-width="2" stroke-linejoin="round"/>
+              <path d="M8 16h8" stroke="#ff78bb" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </span>
+          <span>Bloqueados:</span> <strong id="lockedCount">0</strong>
+        </div>
+
+        <button class="btn" id="resetBtn">Reiniciar progreso</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="grid" id="grid"></div>
+</main>
+
+<div class="tip" id="tip">
+  <button class="x" id="tipClose" title="Cerrar">✕</button>
+  <h3 id="tipTitle">Info</h3>
+  <p id="tipBody">...</p>
+</div>
+
+<footer>
+  <p>Tip: si haces clic en un ramo bloqueado, te dirá qué te falta aprobar.</p>
+</footer>
+
+<script>
+/* ==========================
+   DATA (malla 10 semestres)
+   ========================== */
+const COURSES = [
+  // Sem 1
+  { id:"11", name:"Química General I", sem:1, prereqs:[] },
+  { id:"12", name:"Introducción a las Ciencias Farmacéuticas", sem:1, prereqs:[] },
+  { id:"14", name:"Álgebra y Precálculo", sem:1, prereqs:[] },
+  { id:"13", name:"Computación Aplicada", sem:1, prereqs:[] },
+  { id:"15", name:"Habilidades para el Razonamiento Lógico", sem:1, prereqs:[] },
+
+  // Sem 2
+  { id:"24", name:"Cálculo", sem:2, prereqs:["14"] },
+  { id:"22", name:"Biología Celular", sem:2, prereqs:[] },
+  { id:"21", name:"Química General II", sem:2, prereqs:["11"] },
+  { id:"23", name:"Física", sem:2, prereqs:[] },
+  { id:"25", name:"Habilidades de Trabajo Académico", sem:2, prereqs:[] },
+
+  // Sem 3
+  { id:"31", name:"Transformación Digital", sem:3, prereqs:["13"] },
+  { id:"33", name:"Anatomofisiología", sem:3, prereqs:["22"] },
+  { id:"34", name:"Fisiología (Físicoquímica en plan)", sem:3, prereqs:["23"] },
+  { id:"32", name:"Química Orgánica I", sem:3, prereqs:["21"] },
+  { id:"35", name:"Bioestadística", sem:3, prereqs:["14"] },
+
+  // Sem 4
+  { id:"41", name:"Farmacognosia y Fitoterapia", sem:4, prereqs:["32"] },
+  { id:"42", name:"Química Orgánica II", sem:4, prereqs:["32"] },
+  { id:"43", name:"Química Analítica", sem:4, prereqs:["21"] },
+  { id:"44", name:"Bioquímica", sem:4, prereqs:["22"] },
+  { id:"45", name:"Fisiopatología", sem:4, prereqs:["33"] },
+
+  // Sem 5
+  { id:"51", name:"Farmacoquímica I", sem:5, prereqs:["41"] },
+  { id:"52", name:"Farmacología I", sem:5, prereqs:["41"] },
+  { id:"53", name:"Microbiología", sem:5, prereqs:["44"] },
+  { id:"54", name:"Análisis Instrumental", sem:5, prereqs:["43"] },
+  { id:"55", name:"Operaciones Unitarias", sem:5, prereqs:["34"] },
+
+  // Sem 6
+  { id:"61", name:"Farmacoquímica II", sem:6, prereqs:["51"] },
+  { id:"62", name:"Farmacología II", sem:6, prereqs:["52"] },
+  { id:"63", name:"Salud Pública y Epidemiología", sem:6, prereqs:["35"] },
+  { id:"64", name:"Bioquímica Clínica", sem:6, prereqs:["44"] },
+  { id:"65", name:"Práctica A + S", sem:6, prereqs:[], minSemComplete:5 },
+
+  // Sem 7
+  { id:"71", name:"Nutrición y Alimentos", sem:7, prereqs:["53"] },
+  { id:"72", name:"Toxicología", sem:7, prereqs:["62"] },
+  { id:"73", name:"Ética y Legislación Farmacéutica", sem:7, prereqs:[] },
+  { id:"74", name:"Administración y Gestión Estratégica", sem:7, prereqs:[] },
+  { id:"75", name:"Farmacotecnia I", sem:7, prereqs:["61"] },
+
+  // Sem 8
+  { id:"81", name:"Biotecnología Farmacéutica", sem:8, prereqs:["64"] },
+  { id:"82", name:"Electivo Profundización - Articulación I", sem:8, prereqs:[], minSemComplete:6 },
+  { id:"83", name:"Tecnología Cosmética", sem:8, prereqs:["75"] },
+  { id:"84", name:"Farmacia Asistencial", sem:8, prereqs:["72"] },
+  { id:"85", name:"Farmacotecnia II", sem:8, prereqs:["75"] },
+
+  // Sem 9
+  { id:"91", name:"Farmacia Clínica", sem:9, prereqs:["84"] },
+  { id:"92", name:"Farmacia Veterinaria", sem:9, prereqs:["84"] },
+  { id:"93", name:"Electivo Profundización - Articulación II", sem:9, prereqs:[], minSemComplete:7 },
+  { id:"94", name:"Trabajo de Título I", sem:9, prereqs:[], minSemComplete:8 },
+  { id:"95", name:"Práctica Profesional", sem:9, prereqs:[], minSemComplete:8 },
+
+  // Sem 10
+  { id:"101", name:"Electivo Profundización - Articulación III", sem:10, prereqs:[], minSemComplete:8 },
+  { id:"102", name:"Empleabilidad", sem:10, prereqs:[], minSemComplete:9 },
+  { id:"103", name:"Trabajo de Título II", sem:10, prereqs:[], minSemComplete:9 },
+];
+
+const STORAGE_KEY_DONE = "malla_qf_done_v2";
+const STORAGE_KEY_SEMMSG = "malla_qf_semmsg_v2";
+
+const VALENTINA_PHRASES = [
+  "Vale, vas con todo 💖",
+  "Un paso más, Vale ✨",
+  "Orgullo total, Valentina 🥹",
+  "Constancia nivel pro 🧪",
+  "¡Sigue así, Vale! 🌸",
+  "Increíble avance 💗"
+];
+
+const els = {
+  grid: document.getElementById("grid"),
+  doneCount: document.getElementById("doneCount"),
+  unlockedCount: document.getElementById("unlockedCount"),
+  lockedCount: document.getElementById("lockedCount"),
+  resetBtn: document.getElementById("resetBtn"),
+  tip: document.getElementById("tip"),
+  tipTitle: document.getElementById("tipTitle"),
+  tipBody: document.getElementById("tipBody"),
+  tipClose: document.getElementById("tipClose"),
+};
+
+function loadDone(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY_DONE);
+    if(!raw) return new Set();
+    return new Set(JSON.parse(raw));
+  }catch{
+    return new Set();
+  }
+}
+function saveDone(doneSet){
+  localStorage.setItem(STORAGE_KEY_DONE, JSON.stringify([...doneSet]));
+}
+
+function loadSemMsgs(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY_SEMMSG);
+    if(!raw) return {};
+    return JSON.parse(raw);
+  }catch{
+    return {};
+  }
+}
+function saveSemMsgs(obj){
+  localStorage.setItem(STORAGE_KEY_SEMMSG, JSON.stringify(obj));
+}
+
+function groupBySemester(courses){
+  const map = new Map();
+  for(const c of courses){
+    if(!map.has(c.sem)) map.set(c.sem, []);
+    map.get(c.sem).push(c);
+  }
+  return map;
+}
+
+function semIsComplete(sem, done){
+  const list = COURSES.filter(c=>c.sem===sem);
+  return list.length>0 && list.every(c=>done.has(c.id));
+}
+
+/** minSemComplete: semestres completos contiguos desde el 1 */
+function contiguousCompletedSemesters(done){
+  let n=0;
+  for(let sem=1; sem<=10; sem++){
+    if(semIsComplete(sem, done)) n=sem;
+    else break;
+  }
+  return n;
+}
+
+function unmetReasons(course, done){
+  const missingCourses = (course.prereqs || []).filter(pid => !done.has(pid));
+  const missingNames = missingCourses.map(pid => {
+    const found = COURSES.find(x=>x.id===pid);
+    return found ? found.name : `Ramo ${pid}`;
+  });
+
+  const needSem = course.minSemComplete || 0;
+  const haveSem = contiguousCompletedSemesters(done);
+  const semOk = haveSem >= needSem;
+
+  return { missingCourses, missingNames, needSem, haveSem, semOk };
+}
+
+function isUnlocked(course, done){
+  const r = unmetReasons(course, done);
+  return r.missingCourses.length===0 && r.semOk;
+}
+
+function openTip(title, body){
+  els.tipTitle.textContent = title;
+  els.tipBody.textContent = body;
+  els.tip.style.display = "block";
+}
+function closeTip(){
+  els.tip.style.display = "none";
+}
+
+/* ✅ NUEVO: íconos químicos para los ramos (mismo estilo rosado) */
+function courseIconSvg(kind){
+  if(kind === "flask"){
+    return `
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M9 2h6" stroke="#ff4fa3" stroke-width="2" stroke-linecap="round"/>
+        <path d="M10 2v6l-5.5 9.5A3.5 3.5 0 0 0 7.5 22h9a3.5 3.5 0 0 0 3-5.5L14 8V2" stroke="#ff4fa3" stroke-width="2" stroke-linejoin="round"/>
+        <path d="M8 16h8" stroke="#ff78bb" stroke-width="2" stroke-linecap="round"/>
+      </svg>`;
+  }
+  if(kind === "drop"){
+    return `
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M12 2s7 7 7 12a7 7 0 1 1-14 0c0-5 7-12 7-12Z" fill="#ff78bb" opacity=".45"/>
+        <path d="M12 2s7 7 7 12a7 7 0 1 1-14 0c0-5 7-12 7-12Z" stroke="#ff4fa3" stroke-width="2"/>
+      </svg>`;
+  }
+  if(kind === "pill"){
+    return `
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M8 16l8-8" stroke="#ff4fa3" stroke-width="2" stroke-linecap="round"/>
+        <path d="M7.05 16.95a5 5 0 0 1 0-7.07l2.83-2.83a5 5 0 0 1 7.07 0 5 5 0 0 1 0 7.07l-2.83 2.83a5 5 0 0 1-7.07 0Z" stroke="#ff4fa3" stroke-width="2"/>
+        <path d="M9 8.5l6.5 6.5" stroke="#ff78bb" stroke-width="2" stroke-linecap="round" opacity=".7"/>
+      </svg>`;
+  }
+  if(kind === "mortar"){
+    return `
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M4 10h16" stroke="#ff4fa3" stroke-width="2" stroke-linecap="round"/>
+        <path d="M6 10c0 6 3 10 6 10s6-4 6-10" stroke="#ff4fa3" stroke-width="2" stroke-linejoin="round"/>
+        <path d="M13 6l7-3" stroke="#ff78bb" stroke-width="2" stroke-linecap="round"/>
+      </svg>`;
+  }
+  // default (cross)
+  return `
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M10 4h4v6h6v4h-6v6h-4v-6H4v-4h6V4Z" fill="#ff78bb" opacity=".55"/>
+      <path d="M10 4h4v6h6v4h-6v6h-4v-6H4v-4h6V4Z" stroke="#ff4fa3" stroke-width="2" stroke-linejoin="round"/>
+    </svg>`;
+}
+
+function pickCourseIcon(course){
+  const n = Number(String(course.id).replace(/\D/g,"")) || 0;
+  const kinds = ["flask","pill","drop","mortar","cross"];
+  return kinds[n % kinds.length];
+}
+
+function render(){
+  const done = loadDone();
+  const semMsgs = loadSemMsgs();
+  const bySem = groupBySemester(COURSES);
+
+  els.grid.innerHTML = "";
+
+  let unlockedCount = 0, lockedCount = 0;
+
+  for(let sem=1; sem<=10; sem++){
+    const block = document.createElement("section");
+    block.className = "sem";
+
+    const head = document.createElement("div");
+    head.className = "semHead";
+
+    const isComplete = semIsComplete(sem, done);
+    const msg = isComplete ? (semMsgs[String(sem)] || "¡Bien hecho, Vale! 💖") : "";
+
+    head.innerHTML = `
+      <div>
+        <h2>Semestre ${sem}</h2>
+        <div class="semMot ${isComplete ? "complete" : ""}">${msg}</div>
+      </div>
+    `;
+
+    const list = document.createElement("div");
+    list.className = "courseList";
+
+    const courses = bySem.get(sem) || [];
+    for(const c of courses){
+      const doneNow = done.has(c.id);
+      const unlocked = isUnlocked(c, done);
+
+      if(unlocked && !doneNow) unlockedCount++;
+      if(!unlocked && !doneNow) lockedCount++;
+
+      const row = document.createElement("div");
+      row.className = "course";
+      row.classList.toggle("done", doneNow);
+      row.classList.toggle("unlocked", unlocked && !doneNow);
+      row.setAttribute("role","button");
+      row.setAttribute("tabindex","0");
+
+      const disabled = (!unlocked && !doneNow);
+      row.setAttribute("aria-disabled", disabled ? "true" : "false");
+
+      const prereqNames = (c.prereqs||[]).map(pid => {
+        const found = COURSES.find(x=>x.id===pid);
+        return found ? found.name : pid;
+      });
+
+      const tags = [];
+      if(!doneNow){
+        if(unlocked) tags.push(`<span class="tag">Disponible</span>`);
+        else tags.push(`<span class="tag lock">Bloqueado</span>`);
+      }
+      if(prereqNames.length){
+        tags.push(`<span class="tag">Pre: ${prereqNames.join(" + ")}</span>`);
+      }
+      if(c.minSemComplete){
+        tags.push(`<span class="tag">Req: ${c.minSemComplete} sem completos</span>`);
+      }
+
+      const iconKind = pickCourseIcon(c);
+      const iconSvg = courseIconSvg(iconKind);
+
+      row.innerHTML = `
+        <span class="cIcon" aria-hidden="true">${iconSvg}</span>
+        <div class="cText">
+          <p class="cName">${c.name}</p>
+          <div class="cMeta">${tags.join("")}</div>
+        </div>
+      `;
+
+      function onActivate(){
+        const done2 = loadDone();
+        const semMsgs2 = loadSemMsgs();
+
+        const wasComplete = semIsComplete(sem, done2);
+
+        const already = done2.has(c.id);
+        const unlocked2 = isUnlocked(c, done2);
+
+        if(!already && !unlocked2){
+          const r = unmetReasons(c, done2);
+          const parts = [];
+          if(r.missingNames.length){
+            parts.push("Te falta aprobar: " + r.missingNames.join(", "));
+          }
+          if(!r.semOk && c.minSemComplete){
+            parts.push(`Te faltan semestres completos: llevas ${r.haveSem} y necesitas ${r.needSem}.`);
+          }
+          openTip("🔒 Bloqueado: " + c.name, parts.join(" "));
+          return;
+        }
+
+        if(already) done2.delete(c.id);
+        else done2.add(c.id);
+
+        saveDone(done2);
+
+        const nowComplete = semIsComplete(sem, done2);
+        if(!wasComplete && nowComplete){
+          const phrase = VALENTINA_PHRASES[Math.floor(Math.random()*VALENTINA_PHRASES.length)];
+          semMsgs2[String(sem)] = phrase;
+          saveSemMsgs(semMsgs2);
+        }
+        if(wasComplete && !nowComplete){
+          delete semMsgs2[String(sem)];
+          saveSemMsgs(semMsgs2);
+        }
+
+        closeTip();
+        render();
+      }
+
+      row.addEventListener("click", onActivate);
+      row.addEventListener("keydown", (e)=>{
+        if(e.key==="Enter" || e.key===" "){
+          e.preventDefault();
+          onActivate();
+        }
+      });
+
+      list.appendChild(row);
+    }
+
+    block.appendChild(head);
+    block.appendChild(list);
+    els.grid.appendChild(block);
+  }
+
+  els.doneCount.textContent = String(loadDone().size);
+  els.unlockedCount.textContent = String(unlockedCount);
+  els.lockedCount.textContent = String(lockedCount);
+}
+
+els.resetBtn.addEventListener("click", ()=>{
+  localStorage.removeItem(STORAGE_KEY_DONE);
+  localStorage.removeItem(STORAGE_KEY_SEMMSG);
+  closeTip();
+  render();
+});
+els.tipClose.addEventListener("click", closeTip);
+
+/* ==========================
+   INTRO: cerrar con cualquier toque/clic
+   ========================== */
+(function initIntro(){
+  const intro = document.getElementById("intro");
+  if(!intro) return;
+
+  const hide = () => intro.classList.add("hidden");
+
+  intro.addEventListener("click", hide);
+  intro.addEventListener("touchstart", hide, {passive:true});
+  intro.addEventListener("keydown", (e)=>{
+    if(e.key === "Enter" || e.key === " "){
+      e.preventDefault();
+      hide();
+    }
+  });
+})();
+
+render();
+</script>
+</body>
+</html>
